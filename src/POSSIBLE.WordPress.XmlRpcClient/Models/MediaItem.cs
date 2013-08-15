@@ -3,6 +3,9 @@ using CookComputing.XmlRpc;
 
 namespace POSSIBLE.WordPress.XmlRpcClient.Models
 {
+    /// <summary>
+    /// Represents a WordPress media item object
+    /// </summary>
     [XmlRpcMissingMapping(MappingAction.Ignore)]
     public struct MediaItem
     {

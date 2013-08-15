@@ -3,6 +3,9 @@ using CookComputing.XmlRpc;
 
 namespace POSSIBLE.WordPress.XmlRpcClient.Models
 {
+    /// <summary>
+    /// Represents a WordPress post item
+    /// </summary>
     [XmlRpcMissingMapping(MappingAction.Ignore)]
     public struct Post
     {
@@ -15,7 +18,9 @@ namespace POSSIBLE.WordPress.XmlRpcClient.Models
         public Term[] terms { get; set; }
         public CustomFields[] custom_fields { get; set; }
         public Enclosure enclosure { get; set; }
-      
+
+        public MediaItem[] media_items { get; set; }
+
         //public IEnumerable<Tag> Tags { get; set; }
     }
 }

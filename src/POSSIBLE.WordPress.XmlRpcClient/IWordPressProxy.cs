@@ -3,6 +3,9 @@ using POSSIBLE.WordPress.XmlRpcClient.Models;
 
 namespace POSSIBLE.WordPress.XmlRpcClient
 {
+    /// <summary>
+    /// An interface defining the methods available via the WordPress XML-RPC service
+    /// </summary>
     public interface IWordPressProxy : IXmlRpcProxy 
     {
         [XmlRpcMethod("wp.getPost")]
