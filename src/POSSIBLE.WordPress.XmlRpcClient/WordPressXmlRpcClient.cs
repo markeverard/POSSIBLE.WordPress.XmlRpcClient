@@ -69,9 +69,11 @@ namespace POSSIBLE.WordPress.XmlRpcClient
         {
             var post = GetPost(postId);
 
+            if (!includeMedia)
+                return post;
+
             var mediaFilter = new MediaFilter {parent_id = post.post_id};
             post.media_items = GetMediaLibrary(mediaFilter);
-
             return post;
         }
 

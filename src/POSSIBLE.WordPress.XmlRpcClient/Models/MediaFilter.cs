@@ -6,7 +6,7 @@ namespace POSSIBLE.WordPress.XmlRpcClient.Models
     public class MediaFilter : FilterBase
     {
         public string offset { get; set; }
-        public string parent_id{ get; set; }
+        public string parent_id { get; set; }
         public string mime_type { get; set; }
     }
 }
