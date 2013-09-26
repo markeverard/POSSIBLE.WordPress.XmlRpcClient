@@ -127,14 +127,46 @@ namespace POSSIBLE.WordPress.XmlRpcClient
             return Proxy.GetTaxonomies(BlogId, Username, Password);
         }
 
+        /// <summary>
+        /// Gets a single term.
+        /// </summary>
+        /// <param name="taxonomy">The taxonomy.</param>
+        /// <param name="termId">The term identifier.</param>
+        /// <returns></returns>
         public Term GetTerm(string taxonomy, int termId)
         {
             return Proxy.GetTerm(BlogId, Username, Password, taxonomy, termId);
         }
 
+        /// <summary>
+        /// Gets a list of all terms.
+        /// </summary>
+        /// <param name="taxonomy">The taxonomy.</param>
+        /// <param name="filter">The filter.</param>
+        /// <returns></returns>
         public Term[] GetTerms(string taxonomy, TermFilter filter)
         {
             return Proxy.GetTerms(BlogId, Username, Password, taxonomy, filter);
+        }
+
+        /// <summary>
+        /// Gets a single user.
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <returns></returns>
+        public User GetUser(int userId)
+        {
+            return Proxy.GetUser(BlogId, Username, Password, userId);
+        }
+
+        /// <summary>
+        /// Gets a list of users according to the specified filter.
+        /// </summary>
+        /// <param name="filter">The filter.</param>
+        /// <returns></returns>
+        public User[] GetUsers(UserFilter filter)
+        {
+            return Proxy.GetUsers(BlogId, Username, Password, filter);
         }
 
         public void Dispose()

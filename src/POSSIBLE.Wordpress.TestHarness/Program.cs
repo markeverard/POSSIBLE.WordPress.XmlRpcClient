@@ -9,33 +9,54 @@ namespace POSSIBLE.Wordpress.TestHarness
     {
         static void Main(string[] args)
         {
-            const string baseUrl = "http://www.wordpress.com/";
-            const string username = "xxx";
-            const string password = "xxx";
+            const string baseUrl = "http://www.wordpress.com";
+        const string username = "xxx";
+        const string password = "xxx";
             
             using (var client = new WordPressXmlRpcClient(baseUrl, username, password))
             {
-                 var post = client.GetPost(1992);
-                WritePosts(new []{post});
-                
-                var postFilter = new PostFilter();
-                var posts = client.GetPosts(postFilter);
-                WritePosts(posts);
+                //var post = client.GetPost(1581, true);
+                //WritePosts(new []{post});
+                //WriteMediaItems(post.media_items);
 
-                var mediaFilter = new MediaFilter();
-                var images = client.GetMediaLibrary(mediaFilter);
-                WriteMediaItems(images);
+                var users = client.GetUsers(new UserFilter());
+                WriteUsers(users);
 
-                var taxonomies = client.GetTaxonomies();
-                WriteTaxonomies(taxonomies);
+                var user = client.GetUser(2);
+                WriteUsers(new []{ user});
 
-                var termFilter = new TermFilter();
-                var terms = client.GetTerms("category", termFilter);
-                WriteTerms(terms);
+
+                //var posts = client.GetPosts(new PostFilter() { number = 2 });
+                //WritePosts(posts);
+
+
+                //WritePosts(posts);
+
+                //var mediaFilter = new MediaFilter() { number =1};
+                //var images = client.GetMediaLibrary(mediaFilter);
+                //WriteMediaItems(images);
+
+                //var taxonomies = client.GetTaxonomies();
+                //WriteTaxonomies(taxonomies);
+
+                //var termFilter = new TermFilter();
+                //var terms = client.GetTerms("category", termFilter);
+                //WriteTerms(terms);
             }
 
             Console.WriteLine("Press any key to Exit");
             Console.ReadKey(true);
+        }
+
+        private static void WriteUsers(IEnumerable<User> users)
+        {
+            Console.WriteLine("USERS");
+
+            foreach (var user in users)
+                Console.Write(string.Format("{0} {1} / ('{2}' '{3}'), ", user.first_name, user.last_name, user.email,
+                    user.nickname));
+
+            Console.WriteLine();
         }
 
         private static void WriteTerms(IEnumerable<Term> terms)
@@ -72,8 +93,34 @@ namespace POSSIBLE.Wordpress.TestHarness
             {
                 Console.WriteLine(image.link);
                 Console.WriteLine(image.caption);
+                Console.WriteLine(image.metadata.file);   
+                Console.WriteLine(image.metadata.height);   
+                Console.WriteLine(image.metadata.width);
+
+                WriteMediaItemSizes(image.metadata.sizes);
                 Console.WriteLine("-------------------------");
             }
+        }
+
+        private static void WriteMediaItemSizes(MediaItemSizes size)
+        {
+            WriteMediaItemSize(size.large);    
+            WriteMediaItemSize(size.medium);    
+            WriteMediaItemSize(size.thumbnail);    
+            WriteMediaItemSize(size.post_thumbnail);    
+            WriteMediaItemSize(size.listing);    
+            WriteMediaItemSize(size.listing_small);    
+        }
+
+        private static void WriteMediaItemSize(MediaItemSize size)
+        {
+            if (string.IsNullOrEmpty(size.file))
+                return;
+
+            Console.WriteLine(size.file);
+            Console.WriteLine(size.height);
+            Console.WriteLine(size.width);
+            Console.WriteLine(size.mime_type);
         }
 
 
@@ -88,16 +135,17 @@ namespace POSSIBLE.Wordpress.TestHarness
                 Console.WriteLine("POST");
                 Console.WriteLine("-------------------------");
                 Console.WriteLine(post.post_title);
+                Console.WriteLine(post.post_author);
+                Console.WriteLine(post.post_date);
+                Console.WriteLine(post.post_status);
+
+                var formattedContent = string.Concat("<p>", post.post_content.Replace("\n\n", "</p><p>"), "</p>");
+                Console.WriteLine(formattedContent);
+                
                 WriteCustomFields(post.custom_fields);
                 WriteTerms(post.terms);
 
-                //var filter = new MediaFilter();
-                //filter.parent_id = post.post_id;
-                //var mediaLibrary = client.GetMediaLibrary(BlogId.ToString(), Username, Password, filter);
-                //Console.WriteLine("IMAGES");
-                //foreach (var mediaItem in mediaLibrary)
-                //    Console.WriteLine(mediaItem.link);
-
+       
                 Console.WriteLine("-------------------------");
 
             }

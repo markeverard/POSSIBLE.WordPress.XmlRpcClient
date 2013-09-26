@@ -31,6 +31,12 @@ namespace POSSIBLE.WordPress.XmlRpcClient
 
         [XmlRpcMethod("wp.getTerms")]
         Term[] GetTerms(int blog_id, string username, string password, string taxonomy, TermFilter filter);
+
+        [XmlRpcMethod("wp.getUser")]
+        User GetUser(int blog_id, string username, string password, int user_id);
+
+        [XmlRpcMethod("wp.getUsers")]
+        User[] GetUsers(int blog_id, string username, string password, UserFilter filter);
     }
 }
 

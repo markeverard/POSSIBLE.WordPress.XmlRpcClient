@@ -44,6 +44,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IWordPressProxy.cs" />
+    <Compile Include="Models\UserRole.cs" />
+    <Compile Include="Models\UserFilter.cs" />
     <Compile Include="Models\CustomFields.cs" />
     <Compile Include="Models\Enclosure.cs" />
     <Compile Include="Models\FilterBase.cs" />
@@ -58,6 +60,7 @@
     <Compile Include="Models\Taxonomy.cs" />
     <Compile Include="Models\Term.cs" />
     <Compile Include="Models\TermFilter.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WordPressXmlRpcClient.cs" />
   </ItemGroup>
