@@ -53,7 +53,7 @@ namespace POSSIBLE.WordPress.XmlRpcClient
         /// Returns the post information excluding any related media items.
         /// </summary>
         /// <param name="postId">The post id.</param>
-        /// <returns></returns>
+        /// <returns>Post</returns>
         public Post GetPost(int postId)
         {
             return Proxy.GetPost(BlogId, Username, Password, postId);
@@ -64,16 +64,20 @@ namespace POSSIBLE.WordPress.XmlRpcClient
         /// </summary>
         /// <param name="postId">The post id.</param>
         /// <param name="includeMedia">if set to <c>true</c> [media items are populated via a GetMediaLibrary call].</param>
-        /// <returns></returns>
+        /// <returns>Post</returns>
         public Post GetPost(int postId, bool includeMedia)
         {
             var post = GetPost(postId);
 
             if (!includeMedia)
+            {
+                post.media_items = new MediaItem[] { };
                 return post;
-
+            }
+            
             var mediaFilter = new MediaFilter {parent_id = post.post_id};
-            post.media_items = GetMediaLibrary(mediaFilter);
+            post.media_items = GetMediaLibrary(mediaFilter) ?? new MediaItem[] { };
+
             return post;
         }
 
@@ -81,7 +85,7 @@ namespace POSSIBLE.WordPress.XmlRpcClient
         /// Returns a list of posts excluding media items as specified by the supplied post filter
         /// </summary>
         /// <param name="filter">The post filter</param>
-        /// <returns></returns>
+        /// <returns>Post[]</returns>
         public Post[] GetPosts(PostFilter filter)
         {
             return Proxy.GetPosts(BlogId, Username, Password, filter);
@@ -91,7 +95,7 @@ namespace POSSIBLE.WordPress.XmlRpcClient
         /// Gets a media item by unique identifier.
         /// </summary>
         /// <param name="attachmentId">The attachment id.</param>
-        /// <returns></returns>
+        /// <returns>MediaItem</returns>
         public MediaItem GetMediaItem(int attachmentId)
         {
             return Proxy.GetMediaItem(BlogId, Username, Password, attachmentId);
@@ -101,7 +105,7 @@ namespace POSSIBLE.WordPress.XmlRpcClient
         /// Returns a list of media items as specified by the supplied media filter
         /// </summary>
         /// <param name="filter">The media filter.</param>
-        /// <returns></returns>
+        /// <returns>MediaItem[]</returns>
         public MediaItem[] GetMediaLibrary(MediaFilter filter)
         {
             return Proxy.GetMediaLibrary(BlogId, Username, Password, filter);
@@ -112,7 +116,7 @@ namespace POSSIBLE.WordPress.XmlRpcClient
         /// </summary>
         /// <param name="taxonomy">The taxonomy - examples = "category".</param>
         /// <param name="termId">The term id.</param>
-        /// <returns></returns>
+        /// <returns>Taxonomy</returns>
         public Taxonomy GetTaxonomy(string taxonomy, int termId)
         {
             return Proxy.GetTaxonomy(BlogId, Username, Password, taxonomy, termId);
@@ -121,7 +125,7 @@ namespace POSSIBLE.WordPress.XmlRpcClient
         /// <summary>
         /// Returns a list of taxnomies used across the blog
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Taxonomy[]</returns>
         public Taxonomy[] GetTaxonomies()
         {
             return Proxy.GetTaxonomies(BlogId, Username, Password);
@@ -132,7 +136,7 @@ namespace POSSIBLE.WordPress.XmlRpcClient
         /// </summary>
         /// <param name="taxonomy">The taxonomy.</param>
         /// <param name="termId">The term identifier.</param>
-        /// <returns></returns>
+        /// <returns>Term</returns>
         public Term GetTerm(string taxonomy, int termId)
         {
             return Proxy.GetTerm(BlogId, Username, Password, taxonomy, termId);
@@ -143,7 +147,7 @@ namespace POSSIBLE.WordPress.XmlRpcClient
         /// </summary>
         /// <param name="taxonomy">The taxonomy.</param>
         /// <param name="filter">The filter.</param>
-        /// <returns></returns>
+        /// <returns>Term[]</returns>
         public Term[] GetTerms(string taxonomy, TermFilter filter)
         {
             return Proxy.GetTerms(BlogId, Username, Password, taxonomy, filter);
@@ -153,7 +157,7 @@ namespace POSSIBLE.WordPress.XmlRpcClient
         /// Gets a single user.
         /// </summary>
         /// <param name="userId">The user identifier.</param>
-        /// <returns></returns>
+        /// <returns>User</returns>
         public User GetUser(int userId)
         {
             return Proxy.GetUser(BlogId, Username, Password, userId);
@@ -163,10 +167,40 @@ namespace POSSIBLE.WordPress.XmlRpcClient
         /// Gets a list of users according to the specified filter.
         /// </summary>
         /// <param name="filter">The filter.</param>
-        /// <returns></returns>
+        /// <returns>User[]</returns>
         public User[] GetUsers(UserFilter filter)
         {
             return Proxy.GetUsers(BlogId, Username, Password, filter);
+        }
+
+        /// <summary>
+        /// Gets a single comment 
+        /// </summary>
+        /// <param name="commentId">The comment identifier.</param>
+        /// <returns>Comment</returns>
+        public Comment GetComment(int commentId)
+        {
+            return Proxy.GetComment(BlogId, Username, Password, commentId);
+        }
+
+        /// <summary>
+        /// Gets a list of comments according to the specified filter.
+        /// </summary>
+        /// <param name="filter">The filter.</param>
+        /// <returns>User[]</returns>
+        public Comment[] GetComments(CommentFilter filter)
+        {
+            return Proxy.GetComments(BlogId, Username, Password, filter);
+        }
+
+        /// <summary>
+        /// Gets a list of comment counts specifying how many comments in each status belong to a post.
+        /// </summary>
+        /// <param name="postId">The post id.</param>
+        /// <returns>PostCommentCount</returns>
+        public PostCommentCount GetCommentsCount(int postId )
+        {
+            return Proxy.GetCommentCount(BlogId, Username, Password, postId);
         }
 
         public void Dispose()

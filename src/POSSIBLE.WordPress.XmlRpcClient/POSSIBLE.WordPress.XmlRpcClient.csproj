@@ -44,6 +44,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IWordPressProxy.cs" />
+    <Compile Include="Models\Comment.cs" />
+    <Compile Include="Models\CommentFilter.cs" />
+    <Compile Include="Models\PostCommentCount.cs" />
     <Compile Include="Models\UserRole.cs" />
     <Compile Include="Models\UserFilter.cs" />
     <Compile Include="Models\CustomFields.cs" />

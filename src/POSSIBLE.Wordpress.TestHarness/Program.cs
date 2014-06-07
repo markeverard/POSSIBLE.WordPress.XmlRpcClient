@@ -10,26 +10,30 @@ namespace POSSIBLE.Wordpress.TestHarness
         static void Main(string[] args)
         {
             const string baseUrl = "http://www.wordpress.com";
-        const string username = "xxx";
-        const string password = "xxx";
+            const string username = "xxx";
+            const string password = "xxx";
             
             using (var client = new WordPressXmlRpcClient(baseUrl, username, password))
             {
-                //var post = client.GetPost(1581, true);
-                //WritePosts(new []{post});
-                //WriteMediaItems(post.media_items);
+                var postId = 3502;
+                
+                var post = client.GetPost(postId, false);
+                WritePosts(new []{post});
+                WriteMediaItems(post.media_items);
 
-                var users = client.GetUsers(new UserFilter());
-                WriteUsers(users);
+                var comments = client.GetComments(new CommentFilter(){ post_id = postId});
+                WriteComments(comments);
 
-                var user = client.GetUser(2);
-                WriteUsers(new []{ user});
+                var commentCount = client.GetCommentsCount(postId);
+                WritePostCommentCount(commentCount);
 
+                //var users = client.GetUsers(new UserFilter());
+                //WriteUsers(users);
+
+                //var user = client.GetUser(2);
+                //WriteUsers(new []{ user});
 
                 //var posts = client.GetPosts(new PostFilter() { number = 2 });
-                //WritePosts(posts);
-
-
                 //WritePosts(posts);
 
                 //var mediaFilter = new MediaFilter() { number =1};
@@ -48,12 +52,33 @@ namespace POSSIBLE.Wordpress.TestHarness
             Console.ReadKey(true);
         }
 
+        private static void WritePostCommentCount(PostCommentCount commentCount)
+        {
+            Console.WriteLine("COMMENTS");
+            Console.WriteLine("Total ({0})", commentCount.total_comments);
+            Console.WriteLine("Approved ({0})", commentCount.approved);
+            Console.WriteLine("Awaiting Moderation ({0})", commentCount.awaiting_moderation);
+            Console.WriteLine("Spam ({0})", commentCount.spam);
+
+            Console.WriteLine();           
+        }
+
+        private static void WriteComments(IEnumerable<Comment> comments)
+        {
+            Console.WriteLine("COMMENTS");
+
+            foreach (var comment in comments)
+                Console.WriteLine(string.Format("Date '{0}' by '{1}' - {2}, ", comment.date_created_gmt, comment.author, comment.content));
+
+            Console.WriteLine();
+        }
+
         private static void WriteUsers(IEnumerable<User> users)
         {
             Console.WriteLine("USERS");
 
             foreach (var user in users)
-                Console.Write(string.Format("{0} {1} / ('{2}' '{3}'), ", user.first_name, user.last_name, user.email,
+                Console.WriteLine(string.Format("{0} {1} / ('{2}' '{3}'), ", user.first_name, user.last_name, user.email,
                     user.nickname));
 
             Console.WriteLine();
@@ -64,7 +89,7 @@ namespace POSSIBLE.Wordpress.TestHarness
             Console.WriteLine("TERMS");
 
             foreach (var term in terms)
-                Console.Write(string.Format("{0} ({1}), ", term.name, term.count));
+                Console.WriteLine(string.Format("{0} ({1}), ", term.name, term.count));
 
             Console.WriteLine();
         }

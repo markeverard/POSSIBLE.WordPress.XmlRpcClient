@@ -37,6 +37,15 @@ namespace POSSIBLE.WordPress.XmlRpcClient
 
         [XmlRpcMethod("wp.getUsers")]
         User[] GetUsers(int blog_id, string username, string password, UserFilter filter);
+
+        [XmlRpcMethod("wp.getComment")]
+        Comment GetComment(int blog_id, string username, string password, int comment_id);
+
+        [XmlRpcMethod("wp.getComments")]
+        Comment[] GetComments(int blog_id, string username, string password, CommentFilter filter);
+
+        [XmlRpcMethod("wp.getCommentCount")]
+        PostCommentCount GetCommentCount(int blog_id, string username, string password, int post_id);
     }
 }
 
