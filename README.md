@@ -5,17 +5,17 @@ An implementation of a WordPress XML-RPC client. The package depends on the XML-
 
 The following methods are supported (as of version 0.5) and were tested against WordPress 3.9.1
 
-+wp.getPost
-+wp.getPosts
-+wp.getMediaItem
-+wp.getMediaLibrary
-+wp.getTaxonomy
-+wp.getTaxonomies
-+wp.getTerm
-+wp.getTerms
-+wp.getUser
-+wp.getUsers
-+wp.getComment
-+wp.getComments
-+wp.getCommentCount
+*wp.getPost
+*wp.getPosts
+*wp.getMediaItem
+*wp.getMediaLibrary
+*wp.getTaxonomy
+*wp.getTaxonomies
+*wp.getTerm
+*wp.getTerms
+*wp.getUser
+*wp.getUsers
+*wp.getComment
+*wp.getComments
+*wp.getCommentCount
 
