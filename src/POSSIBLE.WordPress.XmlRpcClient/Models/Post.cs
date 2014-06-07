@@ -15,6 +15,7 @@ namespace POSSIBLE.WordPress.XmlRpcClient.Models
         public DateTime post_date { get; set; }
         public string post_content { get; set; }
         public string post_author { get; set; }
+        public string link { get; set; }
         public Term[] terms { get; set; }
         public CustomFields[] custom_fields { get; set; }
         public Enclosure enclosure { get; set; }
