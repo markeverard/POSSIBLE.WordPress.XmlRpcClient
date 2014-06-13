@@ -8,7 +8,7 @@ Usage
 The WordPress XML-RPC feed by default lives in the root of your WordPress application (/xmlrpc.php). All you need to provide to download content is a WordPress username / password with admin rights, and the domain that your WordPress instance lives on.
 
 An example of the syntax used is below:
-![POSSIBLE.WordPress.XmlRpcClient code usage example](http://www.markeverard.com/?attachment_id=4092 "POSSIBLE.WordPress.XmlRpcClient code usage example")
+![POSSIBLE.WordPress.XmlRpcClient code usage example](http://www.markeverard.com/wp-content/uploads/2014/06/wordpress-client-code-example.png "POSSIBLE.WordPress.XmlRpcClient code usage example")
 
 The following methods are supported (as of version 0.5) and were tested against WordPress 3.9.1
 
