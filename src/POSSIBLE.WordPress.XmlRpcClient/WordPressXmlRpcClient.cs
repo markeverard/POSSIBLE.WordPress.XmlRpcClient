@@ -22,11 +22,11 @@ namespace POSSIBLE.WordPress.XmlRpcClient
         /// <summary>
         /// Gets the full URL of the endpoint - convention assumes it is always hosted at /xmlrpc.php.
         /// </summary>
-        public string FullUrl 
-        { 
+        public string FullUrl
+        {
             get
             {
-                return string.Concat(BaseUrl, 
+                return string.Concat(BaseUrl,
                                BaseUrl.EndsWith("/") ? "xmlrpc.php" : "/xmlrpc.php");
             }
         }
@@ -45,7 +45,8 @@ namespace POSSIBLE.WordPress.XmlRpcClient
             Password = password;
             BlogId = blogId;
 
-            Proxy =  (IWordPressProxy)XmlRpcProxyGen.Create(typeof(IWordPressProxy));
+            Proxy = (IWordPressProxy)XmlRpcProxyGen.Create(typeof(IWordPressProxy));
+
             Proxy.Url = FullUrl;
         }
 
@@ -74,8 +75,8 @@ namespace POSSIBLE.WordPress.XmlRpcClient
                 post.media_items = new MediaItem[] { };
                 return post;
             }
-            
-            var mediaFilter = new MediaFilter {parent_id = post.post_id};
+
+            var mediaFilter = new MediaFilter { parent_id = post.post_id };
             post.media_items = GetMediaLibrary(mediaFilter) ?? new MediaItem[] { };
 
             return post;
@@ -198,10 +199,35 @@ namespace POSSIBLE.WordPress.XmlRpcClient
         /// </summary>
         /// <param name="postId">The post id.</param>
         /// <returns>PostCommentCount</returns>
-        public PostCommentCount GetCommentsCount(int postId )
+        public PostCommentCount GetCommentsCount(int postId)
         {
             return Proxy.GetCommentCount(BlogId, Username, Password, postId);
         }
+
+        /// <summary>
+        /// Creates a new post in the blog.
+        /// </summary>
+        /// <param name="newPost">The post.</param>
+        /// <returns>ID</returns>
+        public string NewPost(Post newPost)
+        {
+            CreatePost createPost = CreatePost.GetFromPost(newPost);
+
+
+            return Proxy.NewPost(BlogId, Username, Password, createPost);
+        }
+
+        /// <summary>
+        /// Creates a new comment for a blog post or page in the blog.
+        /// </summary>
+        /// <param name="postId">The ID of the post or page to which the comment belongs.</param>
+        /// <param name="newComment">The comment.</param>
+        /// <returns>ID</returns>
+        public int NewComment(int postId, Comment newComment)
+        {
+            return Proxy.NewComment(BlogId, Username, Password, postId, newComment);
+        }
+
 
         public void Dispose()
         {

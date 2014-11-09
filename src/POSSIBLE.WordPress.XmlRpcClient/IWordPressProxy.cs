@@ -46,6 +46,12 @@ namespace POSSIBLE.WordPress.XmlRpcClient
 
         [XmlRpcMethod("wp.getCommentCount")]
         PostCommentCount GetCommentCount(int blog_id, string username, string password, int post_id);
+
+        [XmlRpcMethod("wp.newPost")]
+        string NewPost(int blog_id, string username, string password, CreatePost post);
+
+        [XmlRpcMethod("wp.newComment")]
+        int NewComment(int blog_id, string username, string password, int post_id, Comment comment);
     }
 }
 
