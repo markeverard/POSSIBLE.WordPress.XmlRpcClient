@@ -218,16 +218,50 @@ namespace POSSIBLE.WordPress.XmlRpcClient
         }
 
         /// <summary>
-        /// Creates a new comment for a blog post or page in the blog.
+        /// Creates a new comment for a blog post or page in the blog. If your blog does not allow 
+        /// anonymous comments through XML-RPC, the author details will be ignored and the comment
+        /// will come from the username user to create the comment.
+        /// 
+        /// If you need to set author name in a blog that does not allow anoymous comments through 
+        /// XML-RPC, you can use the method call with the optional boolean parameter or call
+        /// EditComment manually after creating the comment.
         /// </summary>
         /// <param name="postId">The ID of the post or page to which the comment belongs.</param>
         /// <param name="newComment">The comment.</param>
         /// <returns>ID</returns>
         public int NewComment(int postId, Comment newComment)
         {
-            return Proxy.NewComment(BlogId, Username, Password, postId, newComment);
+            int commentID = Proxy.NewComment(BlogId, Username, Password, postId, newComment);
+            return commentID;
         }
 
+        /// <summary>
+        /// Creates a new comment for a blog post or page in the blog and optionally automatically edits
+        /// it to ensure that the author name is set properly.
+        /// </summary>
+        /// <param name="postId">The ID of the post or page to which the comment belongs.</param>
+        /// <param name="newComment">The comment.</param>
+        /// <returns>ID</returns>
+        public int NewComment(int postId, Comment newComment, bool autoEdit)
+        {
+            int commentID = Proxy.NewComment(BlogId, Username, Password, postId, newComment);
+            // WP XML-RPC not allowing author to be set on New comments. Force edit comment:
+            if (autoEdit) { EditComment(commentID, newComment); }
+            return commentID;
+        }
+
+        /// <summary>
+        /// Edits a comment for a blog post or page in the blog. Note that calling this method is required 
+        /// after posting a new comment unless your blog supports anonymous comments through XML-RPC. 
+        /// Otherwise, all comments will come from the username that adds the comment.
+        /// </summary>
+        /// <param name="commentId">The ID of the comment.</param>
+        /// <param name="comment">The comment.</param>
+        /// <returns>ID</returns>
+        public bool EditComment(int commentId, Comment comment)
+        {
+            return Proxy.EditComment(BlogId, Username, Password, commentId, comment);
+        }
 
         public void Dispose()
         {
