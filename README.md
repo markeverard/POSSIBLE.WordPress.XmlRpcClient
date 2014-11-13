@@ -1,7 +1,7 @@
 POSSIBLE.WordPress.XmlRpcClient
 ===============================
 
-An implementation of a WordPress XML-RPC client. The package depends on the XML-RPC.NET package and currently is implemented for read-actions based against the WordPress 3.9 XML-RPC specification.
+An implementation of a WordPress XML-RPC client. The package depends on the XML-RPC.NET package and currently is implemented for read and write actions based against the WordPress 3.9 XML-RPC specification.
 
 Usage
 -----
@@ -10,7 +10,7 @@ The WordPress XML-RPC feed by default lives in the root of your WordPress applic
 An example of the syntax used is below:
 ![POSSIBLE.WordPress.XmlRpcClient code usage example](http://www.markeverard.com/wp-content/uploads/2014/06/wordpress-client-code-example.png "POSSIBLE.WordPress.XmlRpcClient code usage example")
 
-The following methods are supported (as of version 0.5) and were tested against WordPress 3.9.1
+The following methods are supported (as of version 1.0) and were tested against WordPress 3.9.1
 
 * wp.getPost
 * wp.getPosts
@@ -25,4 +25,7 @@ The following methods are supported (as of version 0.5) and were tested against 
 * wp.getComment
 * wp.getComments
 * wp.getCommentCount
+* wp.newPost
+* wp.newComment
+* wp.editComment
 
