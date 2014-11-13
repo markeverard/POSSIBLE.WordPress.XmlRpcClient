@@ -22,11 +22,11 @@ namespace POSSIBLE.WordPress.XmlRpcClient
         /// <summary>
         /// Gets the full URL of the endpoint - convention assumes it is always hosted at /xmlrpc.php.
         /// </summary>
-        public string FullUrl 
-        { 
+        public string FullUrl
+        {
             get
             {
-                return string.Concat(BaseUrl, 
+                return string.Concat(BaseUrl,
                                BaseUrl.EndsWith("/") ? "xmlrpc.php" : "/xmlrpc.php");
             }
         }
@@ -45,7 +45,8 @@ namespace POSSIBLE.WordPress.XmlRpcClient
             Password = password;
             BlogId = blogId;
 
-            Proxy =  (IWordPressProxy)XmlRpcProxyGen.Create(typeof(IWordPressProxy));
+            Proxy = (IWordPressProxy)XmlRpcProxyGen.Create(typeof(IWordPressProxy));
+
             Proxy.Url = FullUrl;
         }
 
@@ -74,8 +75,8 @@ namespace POSSIBLE.WordPress.XmlRpcClient
                 post.media_items = new MediaItem[] { };
                 return post;
             }
-            
-            var mediaFilter = new MediaFilter {parent_id = post.post_id};
+
+            var mediaFilter = new MediaFilter { parent_id = post.post_id };
             post.media_items = GetMediaLibrary(mediaFilter) ?? new MediaItem[] { };
 
             return post;
@@ -198,9 +199,68 @@ namespace POSSIBLE.WordPress.XmlRpcClient
         /// </summary>
         /// <param name="postId">The post id.</param>
         /// <returns>PostCommentCount</returns>
-        public PostCommentCount GetCommentsCount(int postId )
+        public PostCommentCount GetCommentsCount(int postId)
         {
             return Proxy.GetCommentCount(BlogId, Username, Password, postId);
+        }
+
+        /// <summary>
+        /// Creates a new post in the blog.
+        /// </summary>
+        /// <param name="newPost">The post.</param>
+        /// <returns>ID</returns>
+        public string NewPost(Post newPost)
+        {
+            CreatePost createPost = CreatePost.GetFromPost(newPost);
+
+
+            return Proxy.NewPost(BlogId, Username, Password, createPost);
+        }
+
+        /// <summary>
+        /// Creates a new comment for a blog post or page in the blog. If your blog does not allow 
+        /// anonymous comments through XML-RPC, the author details will be ignored and the comment
+        /// will come from the username user to create the comment.
+        /// 
+        /// If you need to set author name in a blog that does not allow anoymous comments through 
+        /// XML-RPC, you can use the method call with the optional boolean parameter or call
+        /// EditComment manually after creating the comment.
+        /// </summary>
+        /// <param name="postId">The ID of the post or page to which the comment belongs.</param>
+        /// <param name="newComment">The comment.</param>
+        /// <returns>ID</returns>
+        public int NewComment(int postId, Comment newComment)
+        {
+            int commentID = Proxy.NewComment(BlogId, Username, Password, postId, newComment);
+            return commentID;
+        }
+
+        /// <summary>
+        /// Creates a new comment for a blog post or page in the blog and optionally automatically edits
+        /// it to ensure that the author name is set properly.
+        /// </summary>
+        /// <param name="postId">The ID of the post or page to which the comment belongs.</param>
+        /// <param name="newComment">The comment.</param>
+        /// <returns>ID</returns>
+        public int NewComment(int postId, Comment newComment, bool autoEdit)
+        {
+            int commentID = Proxy.NewComment(BlogId, Username, Password, postId, newComment);
+            // WP XML-RPC not allowing author to be set on New comments. Force edit comment:
+            if (autoEdit) { EditComment(commentID, newComment); }
+            return commentID;
+        }
+
+        /// <summary>
+        /// Edits a comment for a blog post or page in the blog. Note that calling this method is required 
+        /// after posting a new comment unless your blog supports anonymous comments through XML-RPC. 
+        /// Otherwise, all comments will come from the username that adds the comment.
+        /// </summary>
+        /// <param name="commentId">The ID of the comment.</param>
+        /// <param name="comment">The comment.</param>
+        /// <returns>ID</returns>
+        public bool EditComment(int commentId, Comment comment)
+        {
+            return Proxy.EditComment(BlogId, Username, Password, commentId, comment);
         }
 
         public void Dispose()
