@@ -1,7 +1,7 @@
 POSSIBLE.WordPress.XmlRpcClient
 ===============================
 
-An implementation of a WordPress XML-RPC client. The package depends on the XML-RPC.NET package and currently is implemented for read and write actions based against the WordPress 3.9 XML-RPC specification.
+An implementation of a WordPress XML-RPC client. The package depends on the XML-RPC.NET package and currently is implemented for read and write actions based against the [WordPress 3.9 XML-RPC specification](http://codex.wordpress.org/XML-RPC_WordPress_API)
 
 Usage
 -----
