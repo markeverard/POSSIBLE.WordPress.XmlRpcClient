@@ -1,7 +1,7 @@
 ﻿using System;
 using CookComputing.XmlRpc;
 using System.Collections.Generic;
-
+using System.Linq;
 namespace POSSIBLE.WordPress.XmlRpcClient.Models
 {
 
@@ -55,29 +55,14 @@ namespace POSSIBLE.WordPress.XmlRpcClient.Models
                 
             };
             post.terms_names = new XmlRpcStruct();
-
-            Dictionary<string, List<string>> allTerms = new Dictionary<string, List<string>>();
-
-            foreach (var orgTerms in newPost.terms)
+            var terms = new XmlRpcStruct();
+            var termTaxes = newPost.terms.GroupBy(t => t.taxonomy);
+            foreach (var grp in termTaxes)
             {
-
-                if (!allTerms.ContainsKey(orgTerms.taxonomy))
-                {
-                    allTerms.Add(orgTerms.taxonomy, new List<string>());
-                }
-                ((List<string>)allTerms[orgTerms.taxonomy]).Add(orgTerms.name);
+                var termNames = grp.Select(g => g.name).ToArray();
+                terms.Add(grp.Key, termNames);
             }
-
-            foreach (var term in allTerms)
-            {
-
-                if (!post.terms_names.ContainsKey(term.Key))
-                {
-                    post.terms_names.Add(term.Key, term.Value.ToArray());
-                }
-            }
-
-
+            post.terms_names = terms;
             return post;    
 
         }
