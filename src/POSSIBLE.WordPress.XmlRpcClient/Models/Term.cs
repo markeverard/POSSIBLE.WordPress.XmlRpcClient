@@ -1,15 +1,34 @@
-﻿namespace POSSIBLE.WordPress.XmlRpcClient.Models
+﻿using CookComputing.XmlRpc;
+namespace POSSIBLE.WordPress.XmlRpcClient.Models
 {
+    [XmlRpcMissingMapping(MappingAction.Ignore)]
     public struct Term
     {
-        public string term_id { get; set; }
-        public string name { get; set; }
-        public string slug { get; set; }
-        public string term_group { get; set; }
-        public string term_taxonomy_id { get; set; }
-        public string taxonomy { get; set; }
-        public string description { get; set; }
-        public string parent { get; set; }
-        public int count { get; set; }
+            [XmlRpcMember("term_id")]
+            public string term_id { get; set; }
+
+            [XmlRpcMember("name")]
+            public string name { get; set; }
+
+            [XmlRpcMember("slug")]
+            public string slug { get; set; }
+
+            [XmlRpcMember("term_group")]
+            public string term_group { get; set; }
+
+            [XmlRpcMember("term_taxonomy_id")]
+            public string term_taxonomy_id { get; set; }
+
+            [XmlRpcMember("taxonomy")]
+            public string taxonomy { get; set; }
+
+            [XmlRpcMember("description")]
+            public string description { get; set; }
+
+            [XmlRpcMember("parent")]
+            public string parent { get; set; }
+
+            [XmlRpcMember("count")]
+            public int count { get; set; }
     }
 }

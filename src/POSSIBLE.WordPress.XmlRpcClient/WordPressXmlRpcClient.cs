@@ -262,6 +262,23 @@ namespace POSSIBLE.WordPress.XmlRpcClient
         {
             return Proxy.EditComment(BlogId, Username, Password, commentId, comment);
         }
+        
+        /// <summary>
+        /// Add a new term to the blog
+        /// </summary>
+        /// <param name="term">the term, minimal properties to fill are name, taxonomy and slug</param>
+        /// <returns>the id of the new term or -1 in case the addition failed</returns>
+        public string NewTerm(Term term)
+        {
+            try
+            {
+                return Proxy.NewTerm(BlogId, Username, Password, term);
+            }
+            catch(XmlRpcFaultException)
+            {
+                return "-1";
+            }
+        }
 
         public void Dispose()
         {

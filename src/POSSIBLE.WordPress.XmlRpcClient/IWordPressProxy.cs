@@ -56,8 +56,7 @@ namespace POSSIBLE.WordPress.XmlRpcClient
         [XmlRpcMethod("wp.editComment")]
         bool EditComment(int blog_id, string username, string password, int comment_id, Comment comment);
 
-
+        [XmlRpcMethod("wp.newTerm")]
+        string NewTerm(int blog_id, string username, string password, Term content);
     }
 }
-
-
