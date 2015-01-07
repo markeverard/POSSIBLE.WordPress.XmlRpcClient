@@ -1,6 +1,7 @@
 ﻿using System;
 using CookComputing.XmlRpc;
 using POSSIBLE.WordPress.XmlRpcClient.Models;
+using System.IO;
 
 namespace POSSIBLE.WordPress.XmlRpcClient
 {
@@ -278,6 +279,18 @@ namespace POSSIBLE.WordPress.XmlRpcClient
             {
                 return "-1";
             }
+        }
+
+        public UploadItem UploadFile(string filenameIncludingExtension, string pathToFileToUpload, string type = "image/jpeg")
+        {
+            var itemToUpload = new UploadItem();
+            itemToUpload.name = name;
+            itemToUpload.type = type;
+            FileStream fs = new FileStream(pathToFileToUpload, FileMode.Open, FileAccess.Read);
+            byte[] filebytes = new byte[fs.Length];
+            fs.Read(filebytes, 0, Convert.ToInt32(fs.Length));
+            itemToUpload.bits = filebytes;
+            return Proxy.UploadFile(BlogId, Username, Password, itemToUpload);
         }
 
         public void Dispose()

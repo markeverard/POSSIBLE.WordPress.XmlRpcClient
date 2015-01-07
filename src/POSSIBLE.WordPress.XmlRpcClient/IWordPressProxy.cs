@@ -58,5 +58,8 @@ namespace POSSIBLE.WordPress.XmlRpcClient
 
         [XmlRpcMethod("wp.newTerm")]
         string NewTerm(int blog_id, string username, string password, Term content);
+
+        [XmlRpcMethod("wp.uploadFile")]
+        UploadItem UploadFile(int blog_id, string username, string password, UploadItem itemToUpload);
     }
 }
