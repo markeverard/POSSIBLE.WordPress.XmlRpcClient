@@ -284,7 +284,7 @@ namespace POSSIBLE.WordPress.XmlRpcClient
         public UploadItem UploadFile(string filenameIncludingExtension, string pathToFileToUpload, string type = "image/jpeg")
         {
             var itemToUpload = new UploadItem();
-            itemToUpload.name = name;
+            itemToUpload.name = filenameIncludingExtension;
             itemToUpload.type = type;
             FileStream fs = new FileStream(pathToFileToUpload, FileMode.Open, FileAccess.Read);
             byte[] filebytes = new byte[fs.Length];
