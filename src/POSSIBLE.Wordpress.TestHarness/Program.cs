@@ -27,25 +27,28 @@ namespace POSSIBLE.Wordpress.TestHarness
                 var commentCount = client.GetCommentsCount(postId);
                 WritePostCommentCount(commentCount);
 
-                //var users = client.GetUsers(new UserFilter());
-                //WriteUsers(users);
+                var blogs = client.GetUsersBlogs(username, password);
+                WriteBlogs(blogs);
 
-                //var user = client.GetUser(2);
-                //WriteUsers(new []{ user});
+                var users = client.GetUsers(new UserFilter());
+                WriteUsers(users);
 
-                //var posts = client.GetPosts(new PostFilter() { number = 2 });
-                //WritePosts(posts);
+                var user = client.GetUser(2);
+                WriteUsers(new[] { user });
 
-                //var mediaFilter = new MediaFilter() { number =1};
-                //var images = client.GetMediaLibrary(mediaFilter);
-                //WriteMediaItems(images);
+                var posts = client.GetPosts(new PostFilter() { number = 2 });
+                WritePosts(posts);
 
-                //var taxonomies = client.GetTaxonomies();
-                //WriteTaxonomies(taxonomies);
+                var mediaFilter = new MediaFilter() { number = 1 };
+                var images = client.GetMediaLibrary(mediaFilter);
+                WriteMediaItems(images);
 
-                //var termFilter = new TermFilter();
-                //var terms = client.GetTerms("category", termFilter);
-                //WriteTerms(terms);
+                var taxonomies = client.GetTaxonomies();
+                WriteTaxonomies(taxonomies);
+
+                var termFilter = new TermFilter();
+                var terms = client.GetTerms("category", termFilter);
+                WriteTerms(terms);
             }
 
             Console.WriteLine("Press any key to Exit");
@@ -80,6 +83,17 @@ namespace POSSIBLE.Wordpress.TestHarness
             foreach (var user in users)
                 Console.WriteLine(string.Format("{0} {1} / ('{2}' '{3}'), ", user.first_name, user.last_name, user.email,
                     user.nickname));
+
+            Console.WriteLine();
+        }
+
+        private static void WriteBlogs(IEnumerable<UserBlog> blogs)
+        {
+            Console.WriteLine("BLOGS");
+
+            foreach (var blog in blogs)
+                Console.WriteLine(string.Format("{0} {1} / ('{2}' '{3}'), isAdmin '{4}'", blog.blogName, blog.blogid, blog.url,
+                    blog.xmlrpc, blog.isAdmin));
 
             Console.WriteLine();
         }

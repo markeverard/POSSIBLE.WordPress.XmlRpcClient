@@ -31,9 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-        <Reference Include="CookComputing.XmlRpcV2, Version=3.0.0.0, Culture=neutral, PublicKeyToken=a7d6e17aa302004d, processorArchitecture=MSIL">
+    <Reference Include="CookComputing.XmlRpcV2, Version=3.0.0.0, Culture=neutral, PublicKeyToken=a7d6e17aa302004d, processorArchitecture=MSIL">
       <HintPath>..\packages\xmlrpcnet.3.0.0.266\lib\net20\CookComputing.XmlRpcV2.dll</HintPath>
-</Reference>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -64,6 +64,7 @@
     <Compile Include="Models\Term.cs" />
     <Compile Include="Models\TermFilter.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserBlog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WordPressXmlRpcClient.cs" />
   </ItemGroup>

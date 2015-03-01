@@ -77,7 +77,8 @@ namespace POSSIBLE.WordPress.XmlRpcClient
                 return post;
             }
 
-            var mediaFilter = new MediaFilter { parent_id = post.post_id };
+            
+            var mediaFilter = new MediaFilter {  parent_id = Convert.ToInt16(post.post_id) };
             post.media_items = GetMediaLibrary(mediaFilter) ?? new MediaItem[] { };
 
             return post;
@@ -153,6 +154,17 @@ namespace POSSIBLE.WordPress.XmlRpcClient
         public Term[] GetTerms(string taxonomy, TermFilter filter)
         {
             return Proxy.GetTerms(BlogId, Username, Password, taxonomy, filter);
+        }
+
+        /// <summary>
+        /// Gets a blogs for a user.
+        /// </summary>
+        /// <param name="Username">The user name</param>
+        /// <param name="Password">The user's password</param>
+        /// <returns>User</returns>
+        public UserBlog[] GetUsersBlogs(string Username, string Password)
+        {
+            return Proxy.GetUsersBlogs(Username, Password);
         }
 
         /// <summary>
