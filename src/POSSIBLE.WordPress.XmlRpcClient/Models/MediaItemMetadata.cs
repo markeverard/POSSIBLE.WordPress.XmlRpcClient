@@ -8,6 +8,5 @@ namespace POSSIBLE.WordPress.XmlRpcClient.Models
         public int width { get; set; }
         public int height { get; set; }
         public string file { get; set; }
-        public MediaItemSizes sizes { get; set; }         
     }
 }

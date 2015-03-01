@@ -15,6 +15,7 @@ namespace POSSIBLE.WordPress.XmlRpcClient.Models
         public DateTime post_date { get; set; }
         public string post_content { get; set; }
         public string post_author { get; set; }
+        public string post_thumbnail { get; set; }
         public string link { get; set; }
         public XmlRpcStruct terms_names { get; set; }
 
@@ -52,7 +53,7 @@ namespace POSSIBLE.WordPress.XmlRpcClient.Models
                 post_status=newPost.post_status,
                 post_title=newPost.post_title,
                 post_type=newPost.post_type,
-                
+                post_thumbnail = newPost.post_thumbnail
             };
             post.terms_names = new XmlRpcStruct();
             var terms = new XmlRpcStruct();
@@ -83,6 +84,7 @@ namespace POSSIBLE.WordPress.XmlRpcClient.Models
         public string link { get; set; }
         public Term[] terms { get; set; }
         public CustomFields[] custom_fields { get; set; }
+        public string post_thumbnail { get; set; }
         public Enclosure enclosure { get; set; }
 
         public MediaItem[] media_items { get; set; }
