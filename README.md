@@ -22,10 +22,13 @@ The following methods are supported (as of version 1.0) and were tested against 
 * wp.getTerms
 * wp.getUser
 * wp.getUsers
+* wp.getUsersBlogs
 * wp.getComment
 * wp.getComments
 * wp.getCommentCount
 * wp.newPost
 * wp.newComment
 * wp.editComment
+* wp.newTerm
+* wp.uploadFile
 

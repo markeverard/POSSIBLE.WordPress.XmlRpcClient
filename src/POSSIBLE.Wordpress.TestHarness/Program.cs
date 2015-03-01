@@ -132,11 +132,11 @@ namespace POSSIBLE.Wordpress.TestHarness
             {
                 Console.WriteLine(image.link);
                 Console.WriteLine(image.caption);
-                Console.WriteLine(image.metadata.file);   
-                Console.WriteLine(image.metadata.height);   
-                Console.WriteLine(image.metadata.width);
+                //Console.WriteLine(image.metadata.file);   
+                //Console.WriteLine(image.metadata.height);   
+                //Console.WriteLine(image.metadata.width);
 
-                WriteMediaItemSizes(image.metadata.sizes);
+                //WriteMediaItemSizes(image.metadata.sizes);
                 Console.WriteLine("-------------------------");
             }
         }

@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>POSSIBLE.WordPress.XmlRpcClient</id>
-    <version>1.0</version>
+    <version>1.1</version>
     <title>POSSIBLE.WordPress.XmlRpcClient</title>
     <authors>Mark Everard</authors>
     <owners>Mark Everard</owners>
@@ -10,8 +10,8 @@
     <iconUrl>http://www.markeverard.com/wp-content/uploads/2013/03/POSSIBLE_logo_white.jpg</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>An asp.net implementation of a WordPress XML-RPC client. The package depends on the XML-RPC.NET package and currently is implemented for read-actions based against the WordPress 3.9 XML-RPC specification.</description>
-    <releaseNotes>Release covering read actions for posts, media-items and taxonomies and terms and write actions for posts and comments (thanks to https://github.com/furuknap)</releaseNotes>
-    <copyright>Copyright 2014</copyright>
+    <releaseNotes>Release covering uploadFile, getUserBlogs methods and bug fixes for media implementation (thanks to https://github.com/MannusEtten and https://github.com/DiegoSSJ)</releaseNotes>
+    <copyright>Copyright 2015</copyright>
     <tags>XML, RPC, XMLRPC, WordPress, Import, Content, POSSIBLE</tags>
     <dependencies>
       <dependency id="xmlrpcnet" version="3.0.0.266" />
