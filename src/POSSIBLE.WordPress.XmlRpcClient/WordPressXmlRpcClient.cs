@@ -8,7 +8,7 @@ namespace POSSIBLE.WordPress.XmlRpcClient
     /// <summary>
     /// A client class responsible for returning data from a WordPress instance over XML-RPC
     /// </summary>
-    public class WordPressXmlRpcClient : IDisposable
+    public class WordPressXmlRpcClient : IDisposable, IWordPressClient
     {
         protected string BaseUrl;
         protected string Username;

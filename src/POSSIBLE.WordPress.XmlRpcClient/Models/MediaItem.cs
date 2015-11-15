@@ -16,7 +16,7 @@ namespace POSSIBLE.WordPress.XmlRpcClient.Models
         public string title { get; set; }
         public string caption { get; set; }
         public string description { get; set; }
-//        public MediaItemMetadata metadata { get; set; }
+        public MediaItemMetadata metadata { get; set; }
         public string thumbnail { get; set; }
     }
 }

@@ -122,7 +122,7 @@ namespace POSSIBLE.Wordpress.TestHarness
                 Console.WriteLine(image.metadata.height);   
                 Console.WriteLine(image.metadata.width);
 
-                WriteMediaItemSizes(image.metadata.sizes);
+//                WriteMediaItemSizes(image.metadata.sizes);
                 Console.WriteLine("-------------------------");
             }
         }
